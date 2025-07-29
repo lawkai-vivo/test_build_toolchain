@@ -19,18 +19,21 @@ jobs:
         with:
           repository: vivoblueos/libc
           ref: blueos-dev
+          path: libc
 
       - name: Checkout cc-rs
         uses: actions/checkout@v4
         with:
           repository: vivoblueos/cc-rs
-          ref: blueos-dev 
+          ref: blueos-dev
+          path: cc-rs
 
       - name: Checkout rust
         uses: actions/checkout@v4
         with:
           repository: vivoblueos/rust
           ref: blueos-dev
+          path: rust
 
       - name: Build Rust toolchain
         env:
@@ -39,6 +42,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libssl-dev pkg-config
+          cd rust
           cp config.blueos.toml config.toml
           ./x --help
 
