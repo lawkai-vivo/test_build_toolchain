@@ -37,8 +37,8 @@ jobs:
           DESTDIR: /tmp/blueos-sysroot
           CARGO_NET_GIT_FETCH_WITH_CLI: true
         run: |
-          apt-get update
-          apt-get install -y build-essential libssl-dev pkg-config
+          sudo apt-get update
+          sudo apt-get install -y build-essential libssl-dev pkg-config
           cp config.blueos.toml config.toml
           ./x --help
 
