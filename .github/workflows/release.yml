@@ -21,6 +21,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: Release toolchain
+          tag_name: nightly
           files: |
             toolchain.tar.xz
         env:
