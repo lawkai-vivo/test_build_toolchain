@@ -52,7 +52,7 @@ jobs:
 
       - name: Build Rust toolchain
         env:
-          DESTDIR: /tmp/blueos-sysroot
+          DESTDIR: ${GITHUB_WORKSPACE}/blueos-sysroot
           CARGO_NET_GIT_FETCH_WITH_CLI: true
         run: |
           cd rust
