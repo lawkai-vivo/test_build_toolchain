@@ -4,6 +4,8 @@ on:
   workflow_dispatch: null
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Make sysroot directory
@@ -36,6 +38,7 @@ jobs:
           asset_path: ./toolchain.tar.xz
           asset_name: toolchain.tar.xz
           asset_content_type: application/x-tar
+
       - name: Clean up
         run: |
           rm -rf /tmp/blueos-sysroot
