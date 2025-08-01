@@ -1,0 +1,29 @@
+name: Test release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Make sysroot directory
+        run: |
+          mkdir -p /tmp/blueos-sysroot/usr/local/{bin,lib}
+          touch /tmp/blueos-sysroot/README.md
+
+      - name: Create tarball
+        run: |
+          tar cJvf toolchain.tar.xz -C /tmp/blueos-sysroot .
+
+      - name: Release tarball
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release toolchain
+          files: |
+            toolchain.tar.xz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            
+            
