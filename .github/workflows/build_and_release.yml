@@ -10,6 +10,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
 
     steps:
@@ -70,3 +73,30 @@ jobs:
           ./x.py install -i --stage 0 clippy
           cp -ravf build/x86_64-unknown-linux-gnu/llvm/{bin,lib} ${DESTDIR}/usr/local
 
+
+      - name: Create tarball
+        run: |
+          tar cJvf blueos-toolchain.tar.xz -C ${GITHUB_WORKSPACE}/blueos-sysroot .
+      - name: Get release page
+        uses: octokit/request-action@v2.x
+        id: get_release_page
+        with:
+          route: GET /repos/lawkai-vivo/test_build_toolchain/releases/tags/nightly
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get release url
+        id: get_release_url
+        run: |
+          url=$(echo "${RESP}" | jq -r '.upload_url')
+          echo "url=$url" >> $GITHUB_OUTPUT
+        env:
+          RESP: ${{ steps.get_release_page.outputs.data }}
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.get_release_url.outputs.url }}
+          asset_path: ./blueos-toolchain.tar.xz
+          asset_name: blueos-toolchain.tar.xz
+          asset_content_type: application/x-tar
