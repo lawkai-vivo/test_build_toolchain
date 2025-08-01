@@ -31,7 +31,7 @@ jobs:
           url=$(echo "${RESP}" | jq -r '.upload_url')
           echo "url=$url" >> $GITHUB_OUTPUT
         env:
-          RESP: ${{ steps.get_release.outputs.data }}
+          RESP: ${{ steps.get_release_page.outputs.data }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -42,3 +42,7 @@ jobs:
           asset_path: toolchain.tar.xz
           asset_name: toolchain.tar.xz
           asset_content_type: application/x-tar
+
+      - name: Clean up
+        run: |
+          rm -rf /tmp/blueos-sysroot
