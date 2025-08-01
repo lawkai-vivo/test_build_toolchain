@@ -60,7 +60,7 @@ jobs:
         run: |
           cd rust
           cp config.blueos.toml config.toml
-          echo "Installing Rust toolchain to {DESTDIR} ..."
+          echo "Installing Rust toolchain to ${DESTDIR} ..."
           ./x.py install -i --stage 1 compiler/rustc
           ./x.py install -i --stage 1 library/std --target x86_64-unknown-linux-gnu
           ./x.py install -i --stage 1 library/std --target thumbv7m-vivo-blueos-newlibeabi
