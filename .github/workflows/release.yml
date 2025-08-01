@@ -17,14 +17,28 @@ jobs:
         run: |
           tar cJvf toolchain.tar.xz -C /tmp/blueos-sysroot .
 
-      - name: Release tarball
-        uses: softprops/action-gh-release@v1
-        with:
-          name: Release toolchain
-          tag_name: nightly
-          files: |
-            toolchain.tar.xz
+      - name: Get release page
+        - uses: octokit/request-action@v2.x
+          id: get_release_page
+          with:
+            route: GET /repos/lawkai-vivo/test_build_toolchain/releases/tags/nightly
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get release url
+        id: get_release_url
+        run: |
+          url=$(echo "${RESP}" | jq -r '.upload_url')
+          echo "url=$url" >> $GITHUB_OUTPUT
+        env:
+          RESP: ${{ steps.get_release.outputs.data }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            
-            
+        with:
+          upload_url: ${{ steps.get_release_url.outputs.url }}
+          asset_path: toolchain.tar.xz
+          asset_name: toolchain.tar.xz
+          asset_content_type: application/x-tar
