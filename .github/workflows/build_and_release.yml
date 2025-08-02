@@ -59,8 +59,8 @@ jobs:
           CARGO_NET_GIT_FETCH_WITH_CLI: true
         run: |
           mkdir -p ${DESTDIR}
-          cd rust
-          cp config.blueos.toml config.toml
+          #cd rust
+          #cp config.blueos.toml config.toml
           echo "Installing Rust toolchain to ${DESTDIR} ..."
           touch ${DESTDIR}/empty
 
