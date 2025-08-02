@@ -16,6 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
 
       - name: Checkout self
         uses: actions/checkout@v4
@@ -80,8 +90,7 @@ jobs:
           ./x.py install -i --stage 0 rustfmt
           ./x.py install -i --stage 0 rust-analyzer
           ./x.py install -i --stage 0 clippy
-          ./x.py install -i --stage 0 llvm-tools
-          du -sh build
+          cp -rav build/x86_64-unknown-linux-gnu/llvm/{bin,lib} ${DESTDIR}/usr/local
 
       - name: Create tarball
         run: |
