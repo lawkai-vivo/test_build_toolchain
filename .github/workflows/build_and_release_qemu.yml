@@ -19,7 +19,7 @@ jobs:
       - name: Install packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config ninja-build libslirp-dev curl
+          sudo apt-get install -y build-essential pkg-config ninja-build libslirp-dev wget
 
       - name: Make sysroot directory
         run: |
@@ -27,9 +27,9 @@ jobs:
 
       - name: Download QEMU tarball
         run: |
-          curl -L -o qemu.tar.xz https://download.qemu.org/qemu-10.0.3.tar.xz
-          tar xvf qemu.tar.xz
-          rm qemu.tar.xz
+          wget https://download.qemu.org/qemu-10.0.3.tar.xz
+          tar xvf qemu-10.0.3.tar.xz
+          rm -v qemu-10.0.3.tar.xz
           cd qemu-10.0.3
           mkdir build
           cd build
