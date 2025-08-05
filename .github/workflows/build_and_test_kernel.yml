@@ -47,7 +47,7 @@ jobs:
       - name: Export sysroot binaries
         run: |
           echo "$PWD/sysroot/usr/local/bin" >> "$GITHUB_PATH"
-          echo "$PWD/sysroot/usr/local/lib/rustlib/x86_64-unknown-linux-gnu/bin >> "$GITHUB_PATH"
+          echo "$PWD/sysroot/usr/local/lib/rustlib/x86_64-unknown-linux-gnu/bin" >> "$GITHUB_PATH"
 
       - name: Init repo and sync
         run: |
