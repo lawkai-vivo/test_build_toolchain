@@ -19,13 +19,13 @@ jobs:
       - name: Install packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config ninja-build libslirp-dev wget
+          sudo apt-get install -y build-essential pkg-config ninja-build libslirp-dev wget meson libglib2.0-dev flex bison libfdt-dev
 
       - name: Make sysroot directory
         run: |
           mkdir -p sysroot/usr/local
 
-      - name: Download QEMU tarball
+      - name: Download QEMU tarball, build and install
         run: |
           wget https://download.qemu.org/qemu-10.0.3.tar.xz
           tar xvf qemu-10.0.3.tar.xz
