@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: Install packages
         run: |
-          sudo apt update
-          sudo apt install -y ninja generate-ninja qemu-system-arm qemu-system-misc curl
+          sudo apt-get update
+          sudo apt-get install -y ninja generate-ninja qemu-system-arm qemu-system-misc curl
 
       - name: Install Arm GNU toolchain
         uses: carlosperate/arm-none-eabi-gcc-action@v1
