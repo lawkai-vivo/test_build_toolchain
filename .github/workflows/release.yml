@@ -1,7 +1,13 @@
 ---
 name: Test release
 on:
-  workflow_dispatch: null
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "The tag where built tarballs are storing to"
+        required: true
+        default: "v0.8.0"
+
 jobs:
   build:
     permissions:
@@ -19,7 +25,7 @@ jobs:
         uses: octokit/request-action@v2.x
         id: get_release_page
         with:
-          route: GET /repos/lawkai-vivo/test_build_toolchain/releases/tags/nightly
+          route: GET /repos/lawkai-vivo/test_build_toolchain/releases/tags/${{ github.event.inputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Get release url
