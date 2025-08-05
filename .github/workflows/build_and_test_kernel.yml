@@ -28,8 +28,9 @@ jobs:
           curl -L -o blueos-toolchain.tar.xz https://github.com/lawkai-vivo/test_build_toolchain/releases/download/nightly/blueos-toolchain-2025_08_05_05_43.tar.xz
           mkdir sysroot
           tar xvf blueos-toolchain.tar.xz -C sysroot
+          rm -rvf blueos-toolchain.tar.xz
           echo "$PWD/sysroot/usr/local/bin" >> "$GITHUB_PATH"
-
+          
       - name: Init repo and sync
         uses: Xerner/github-actions-android-repo-init-and-sync@0.0.4
         with:
