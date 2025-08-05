@@ -100,6 +100,7 @@ jobs:
       - name: Create tarball
         run: |
           tar cJvf blueos-toolchain.tar.xz -C ${{ github.workspace }}/blueos-sysroot .
+
       - name: Get release page
         uses: octokit/request-action@v2.x
         id: get_release_page
@@ -107,6 +108,7 @@ jobs:
           route: GET /repos/lawkai-vivo/test_build_toolchain/releases/tags/${{ github.event.inputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Get release url
         id: get_release_url
         run: |
