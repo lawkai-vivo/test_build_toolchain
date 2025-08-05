@@ -11,7 +11,7 @@ jobs:
       - name: Install packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-kconfiglib ninja-build generate-ninja qemu-system-arm qemu-system-misc curl
+          sudo apt-get install -y clang python3-kconfiglib ninja-build generate-ninja qemu-system-arm qemu-system-misc curl
 
       - name: Install Arm GNU toolchain
         uses: carlosperate/arm-none-eabi-gcc-action@v1

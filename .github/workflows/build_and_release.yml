@@ -95,7 +95,7 @@ jobs:
           ./x.py install -i --stage 0 rustfmt
           ./x.py install -i --stage 0 rust-analyzer
           ./x.py install -i --stage 0 clippy
-          cp -rav build/x86_64-unknown-linux-gnu/llvm/{bin,lib} ${DESTDIR}/usr/local
+          ./x.py install -i --stage 0 llvm-tools
 
       - name: Create tarball
         run: |
