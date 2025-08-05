@@ -30,13 +30,16 @@ jobs:
           tar xvf blueos-toolchain.tar.xz -C sysroot
           rm -rvf blueos-toolchain.tar.xz
           echo "$PWD/sysroot/usr/local/bin" >> "$GITHUB_PATH"
-          
+
+      - name: Download Android repo
+        run: |
+          curl -L -o sysroot/usr/local/bin/repo https://storage.googleapis.com/git-repo-downloads/repo
+          chmod a+x sysroot/usr/local/bin/repo
+
       - name: Init repo and sync
-        uses: Xerner/github-actions-android-repo-init-and-sync@0.0.4
-        with:
-          manifest_url: https://github.com/vivoblueos/manifests.git
-          manifest_branch: main
-          manifest_filename: manifest.xml
+        run: |
+          repo init -u https://github.com/vivoblueos/manifests.git -b main -m manifest.xml
+          repo sync -j$(nproc)
 
       - name: Run CI script
         run: |
