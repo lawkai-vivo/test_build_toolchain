@@ -25,18 +25,21 @@ jobs:
         run: |
           mkdir -p sysroot/usr/local
 
-      - name: Download QEMU tarball, build and install
+      - name: Download QEMU tarball
         run: |
           wget https://download.qemu.org/qemu-10.0.3.tar.xz
           tar xvf qemu-10.0.3.tar.xz
           rm -v qemu-10.0.3.tar.xz
+
+      - name: Build and install
+        run: |
           cd qemu-10.0.3
           mkdir build
           cd build
           ../configure --prefix=${{ github.workspace }}/sysroot/usr/local --enable-slirp --target-list=riscv32-softmmu,riscv64-softmmu,arm-softmmu,aarch64-softmmu
           ninja install
 
-      - name: Create tarball
+      - name: Create release tarball
         run: |
           tar cJvf qemu.tar.xz -C ${{ github.workspace }}/sysroot .
 
